@@ -8,10 +8,15 @@ import { Product } from "@/components/product";
 
 import { CATEGORIES, MENU } from "@/utils/data/products";
 
-export default function Home() {
+import { useCartStore } from "@/stores/cart-store";
 
+export default function Home() {
+  const cartStore = useCartStore();
   const [category, setCategory] = useState(CATEGORIES[0]);
+
   const sectionLIstRef = useRef<SectionList>(null);
+
+  const cartQuantityItens = cartStore.products.reduce((total, product) => total + product.quantity, 0);
 
   function handleCategorySelect(selectedCategory: string) {
     setCategory(selectedCategory);
@@ -25,11 +30,11 @@ export default function Home() {
         itemIndex: 0
       });
     }
-  }
+  };
 
   return (
     <View className="flex-1 pt-8">
-      <Header title="Faça seu pedido" cartQuantityItems={3} />
+      <Header title="Faça seu pedido" cartQuantityItems={cartQuantityItens} />
       <FlatList
         data={CATEGORIES}
         keyExtractor={(item) => item}
