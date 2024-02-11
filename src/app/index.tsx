@@ -6,7 +6,7 @@ import { CategoryButton } from "@/components/category-button";
 import { Header } from "@/components/header";
 import { Product } from "@/components/product";
 
-import { CATEGORIES, MENU } from "@/utils/data/products";
+import { CATEGORIES, MENU, ProductProps } from "@/utils/data/products";
 
 import { useCartStore } from "@/stores/cart-store";
 
@@ -14,7 +14,7 @@ export default function Home() {
   const cartStore = useCartStore();
   const [category, setCategory] = useState(CATEGORIES[0]);
 
-  const sectionLIstRef = useRef<SectionList>(null);
+  const sectionLIstRef = useRef<SectionList<ProductProps>>(null);
 
   const cartQuantityItens = cartStore.products.reduce((total, product) => total + product.quantity, 0);
 
